@@ -1,6 +1,7 @@
 function App() {
   return (
-    <div className="App">
+    <div>
+      <h1 className="m-4">Free games</h1>
     </div>
   );
 }
