@@ -45,6 +45,13 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/preset-env": "^7.22.10",
     "@babel/preset-react": "^7.22.5",
-    "babel-jest": "^29.6.2"
+    "babel-jest": "^29.6.2",
+    "jest": "^27.5.1",
+    "react-test-renderer": "^18.2.0"
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+       "/node_modules/(?!(axios)/)"
+     ]
   }
 }
