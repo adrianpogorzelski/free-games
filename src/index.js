@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import AllGames from './App';
+import AllGames from './AllGames';
 import Header from './Header';
 import reportWebVitals from './reportWebVitals';
 
