@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import fetchData from "./fetchData";
+import fetchData from "../utils/fetchData";
 
 function AllGames() {
 
@@ -51,19 +51,19 @@ function AllGames() {
         <ul className="pagination justify-content-center">
 
           <li className={`page-item ${currentPage <= 1 ? 'disabled' : ''}`}>
-            <a className="page-link" aria-label="Previous" onClick={() => setCurrentPage(currentPage - 1)}>
+            <a className="page-link" aria-label="Previous" href="#" onClick={() => setCurrentPage(currentPage - 1)}>
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
 
-          <li className={`page-item ${currentPage <= 2 ? 'd-none' : ''}`}><a className="page-link" onClick={() => setCurrentPage(currentPage -2)}>{currentPage - 2}</a></li>
-          <li className={`page-item ${currentPage <= 1 ? 'd-none' : ''}`}><a className="page-link" onClick={() => setCurrentPage(currentPage - 1)}>{currentPage - 1}</a></li>
-          <li className="page-item"><a className="page-link active">{currentPage}</a></li>
-          <li className={`page-item ${currentPage >= allPages ? 'd-none' : ''}`}><a className="page-link" onClick={() => setCurrentPage(currentPage + 1)}>{currentPage + 1}</a></li>
-          <li className={`page-item ${currentPage >= allPages - 1 ? 'd-none' : ''}`}><a className="page-link" onClick={() => setCurrentPage(currentPage + 2)}>{currentPage + 2}</a></li>
+          <li className={`page-item ${currentPage <= 2 ? 'd-none' : ''}`}><a className="page-link" href="#" onClick={() => setCurrentPage(currentPage -2)}>{currentPage - 2}</a></li>
+          <li className={`page-item ${currentPage <= 1 ? 'd-none' : ''}`}><a className="page-link" href="#" onClick={() => setCurrentPage(currentPage - 1)}>{currentPage - 1}</a></li>
+          <li className="page-item"><a className="page-link active" href="#" >{currentPage}</a></li>
+          <li className={`page-item ${currentPage >= allPages ? 'd-none' : ''}`}><a className="page-link" href="#" onClick={() => setCurrentPage(currentPage + 1)}>{currentPage + 1}</a></li>
+          <li className={`page-item ${currentPage >= allPages - 1 ? 'd-none' : ''}`}><a className="page-link" href="#" onClick={() => setCurrentPage(currentPage + 2)}>{currentPage + 2}</a></li>
 
-          <li className={`page-item ${currentPage == allPages ? 'disabled' : ''}`}>
-            <a className="page-link" aria-label="Next" onClick={() => setCurrentPage(currentPage + 1)}>
+          <li className={`page-item ${currentPage === allPages ? 'disabled' : ''}`}>
+            <a className="page-link" aria-label="Next" href="#" onClick={() => setCurrentPage(currentPage + 1)}>
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>

@@ -47,11 +47,12 @@
     "@babel/preset-react": "^7.22.5",
     "babel-jest": "^29.6.2",
     "jest": "^27.5.1",
+    "react-router-dom": "^6.17.0",
     "react-test-renderer": "^18.2.0"
   },
   "jest": {
     "transformIgnorePatterns": [
-       "/node_modules/(?!(axios)/)"
-     ]
+      "/node_modules/(?!(axios)/)"
+    ]
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import {getByRole, render} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import Header from '../Header';
+import Header from '../components/Header';
 
 describe('Header component', () => {
   it('renders an <h1> tag with the text "Free games"', () => {
