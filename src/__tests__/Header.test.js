@@ -2,10 +2,14 @@ import React from 'react';
 import {getByRole, render} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Header from '../components/Header';
+import {BrowserRouter} from "react-router-dom";
 
 describe('Header component', () => {
   it('renders an <h1> tag with the text "Free games"', () => {
-    const { getByText } = render(<Header />);
+    const { getByText } = render(
+        <BrowserRouter>
+          <Header />
+        </BrowserRouter>);
 
     const h1Element = getByText(/Free games/i);
     
@@ -13,14 +17,20 @@ describe('Header component', () => {
   });
   describe('Navigation', () => {
     it('renders a nav element', () => {
-      const { getByRole } = render(<Header />);
+      const { getByRole } = render(
+          <BrowserRouter>
+            <Header />
+          </BrowserRouter>);
 
       const navElement = getByRole('navigation')
 
       expect(navElement).toBeInTheDocument();
     });
     it('renders "All games" nav item', () => {
-      const { getByText } = render(<Header />);
+      const { getByText } = render(
+          <BrowserRouter>
+            <Header />
+          </BrowserRouter>);
 
       const allGamesButton = getByText(/All games/i)
 
