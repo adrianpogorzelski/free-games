@@ -4,26 +4,75 @@ import '@testing-library/jest-dom/extend-expect';
 import AllGames from '../pages/AllGames';
 import fetchData from '../utils/fetchData';
 import {BrowserRouter} from "react-router-dom";
+import {configureStore} from "@reduxjs/toolkit";
+import {Provider, useSelector} from "react-redux";
+import allGamesReducer from "../store/allGamesSlice"
+import gameDetailsReducer from "../store/gameDetailsSlice"
 
 jest.mock('../utils/fetchData');
+jest.mock('react-redux', () => ({
+    ...jest.requireActual('react-redux'),
+    useSelector: jest.fn()
+}));
 
 const mockData = [
     { id: 1, title: 'Game A', thumbnail: '', genre: '' },
     { id: 2, title: 'Game B', thumbnail: '', genre: '' },
 ];
 
+const mockStore = configureStore({
+    reducer: {
+        allGames: allGamesReducer,
+        gameDetails: gameDetailsReducer
+    },
+    preloadedState: {
+        allGames: mockData
+    }
+});
+
+beforeEach(() => {
+    fetchData.mockClear();
+    useSelector.mockClear();
+});
+
 describe("AllGames", () => {
-    it("renders cards", async () => {
-        fetchData.mockResolvedValue(mockData);
+    describe("Rendering cards", () => {
+        it("renders cards", async () => {
+            useSelector.mockReturnValue(mockData)
 
-        render(
-            <BrowserRouter>
-                <AllGames />
-            </BrowserRouter>);
+            render(
+                <Provider store={mockStore}>
+                    <BrowserRouter>
+                        <AllGames />
+                    </BrowserRouter>
+                </Provider>
+            );
 
-        const cards = await screen.findAllByTestId("game-card");
-        expect(cards).toHaveLength(mockData.length);
-    });
+            const cards = await screen.findAllByTestId("game-card");
+            expect(cards).toHaveLength(mockData.length);
+        });
+
+        it('displays games based on state', () => {
+            // Setting the mock return value for useSelector
+            useSelector.mockReturnValue([
+                { id: 1, title: 'Game 1' },
+                { id: 2, title: 'Game 2' }
+            ]);
+
+            const { getByText } = render(
+                <Provider store={mockStore}>
+                    <BrowserRouter>
+                        <AllGames />
+                    </BrowserRouter>
+                </Provider>
+            );
+
+            // Assertions
+            expect(getByText('Game 1')).toBeInTheDocument();
+            expect(getByText('Game 2')).toBeInTheDocument();
+        });
+
+    })
 
     describe("Pagination", () => {
         it("navigation buttons are rendered", () => {

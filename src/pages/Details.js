@@ -28,9 +28,9 @@ const Details = () => {
     }
 
     return (
-        <main className="container my-3">
+        <>
             <h2>{gameData.title}</h2>
-        </main>
+        </>
     )
 }
 

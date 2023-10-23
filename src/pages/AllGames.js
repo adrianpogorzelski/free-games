@@ -27,7 +27,7 @@ const AllGames = () => {
   }
 
   return (
-    <main className="container my-5">
+    <>
         <section id="top" className="row row-cols-3 g-3">
           {
             paginate().map((game) => (
@@ -58,7 +58,7 @@ const AllGames = () => {
           </li>
         </ul>
       </nav>
-    </main>
+    </>
   );
 }
 

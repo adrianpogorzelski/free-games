@@ -1,8 +1,7 @@
-import { Outlet, Link} from "react-router-dom";
+import { Link} from "react-router-dom";
 
 function Header() {
     return (
-        <>
         <header className="bg-secondary">
             <nav className="navbar navbar-expand-lg">
                 <div className="container">
@@ -23,9 +22,6 @@ function Header() {
                 </div>
             </nav>
         </header>
-
-        <Outlet />
-        </>
     )
 }
 
