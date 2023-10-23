@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {setCurrentGameId} from "../store/gameDetailsSlice";
+import { setCurrentGameId} from "../store/gameDetailsSlice";
 
 const Card = ({id, thumbnail, title, genre, platform, short_description}) => {
     const dispatch = useDispatch();
