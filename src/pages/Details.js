@@ -1,33 +1,34 @@
-import React, {useState, useEffect} from "react";
-import {useLocation} from "react-router-dom";
+import React, { useEffect} from "react";
 import fetchData from "../utils/fetchData";
+import {useDispatch, useSelector} from "react-redux";
+import { setGameData} from "../store/gameDetailsSlice";
 
 const Details = () => {
-    const location = useLocation();
-    const gameId = location.state?.gameId;
-
-    console.log(location.state)
-
-    console.log(gameId)
-
-    const [gameData, setGameData] = useState(null)
+    const dispatch = useDispatch();
+    const gameId = useSelector(state => state.gameDetails.id)
 
     const endpoint = `https://free-to-play-games-database.p.rapidapi.com/api/game?id=${gameId}`
 
     useEffect(() => {
-        const getGameData = async () => {
-            const response = await fetchData(endpoint);
-            setGameData(response)
+        if (gameId) {
+            fetchData(endpoint).then(data => {
+                dispatch(setGameData(data));
+            });
         }
-        getGameData();
-    }, [])
+    }, [gameId, dispatch, endpoint]);
 
-    if (!gameData) {
-        return <div>Error loading game details</div>;
+    const gameData = useSelector(state => state.gameDetails.data)
+
+    if (!gameData || gameId !== gameData.id) {
+        return (
+            <div className="spinner-border text-light" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
+        );
     }
 
     return (
-        <main className="container my-5">
+        <main className="container my-3">
             <h2>{gameData.title}</h2>
         </main>
     )

@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
-import fetchData from "../utils/fetchData";
 import Card from "../components/Card";
+import { fetchGames } from "../store/allGamesSlice";
+import {useDispatch, useSelector} from "react-redux";
 
-function AllGames() {
+const AllGames = () => {
+  const dispatch = useDispatch();
+  const games = useSelector(state => state.allGames)
 
-  const ALL_GAMES = 'https://free-to-play-games-database.p.rapidapi.com/api/games';
-  const [games, setGames] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Fetch data
   useEffect(() => {
-    const getGames = async () => {
-      const fetchedGames = await fetchData(ALL_GAMES);
-      setGames(fetchedGames);
-    };
-    getGames();
-  }, []);
+    // Only if games were not fetched previously
+    if (!games || games.length === 0) {
+      dispatch(fetchGames());
+    }
+  }, [dispatch, games]);
 
   // Pagination
   let cardsPerPage = 20;
@@ -32,15 +31,7 @@ function AllGames() {
         <section className="row row-cols-3 g-3">
           {
             paginate().map((game) => (
-              <Card key={game.id}
-                    id={game.id}
-                    thumbnail={game.thumbnail}
-                    alt={game.title}
-                    title={game.title}
-                    genre={game.genre}
-                    platform={game.platform}
-                    short_description={game.short_description}
-              />
+              <Card key={game.id} {...game}/>
             ))
           }
         </section>

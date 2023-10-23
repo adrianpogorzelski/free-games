@@ -4,7 +4,6 @@ import '@testing-library/jest-dom/extend-expect';
 import AllGames from '../pages/AllGames';
 import fetchData from '../utils/fetchData';
 import {BrowserRouter} from "react-router-dom";
-import Header from "../components/Header";
 
 jest.mock('../utils/fetchData');
 
