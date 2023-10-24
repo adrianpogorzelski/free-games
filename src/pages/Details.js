@@ -2,24 +2,25 @@ import React, { useEffect} from "react";
 import fetchData from "../utils/fetchData";
 import {useDispatch, useSelector} from "react-redux";
 import { setGameData} from "../store/gameDetailsSlice";
+import {useParams} from "react-router-dom";
 
 const Details = () => {
     const dispatch = useDispatch();
-    const gameId = useSelector(state => state.gameDetails.id)
+    const {gameId} = useParams();
+    const gameData = useSelector(state => state.gameDetails.data)
 
     const endpoint = `https://free-to-play-games-database.p.rapidapi.com/api/game?id=${gameId}`
 
     useEffect(() => {
-        if (gameId) {
+        if (!gameData || gameData.id !== parseInt(gameId, 10)) {
             fetchData(endpoint).then(data => {
                 dispatch(setGameData(data));
             });
         }
-    }, [gameId, dispatch, endpoint]);
+    }, [gameId, dispatch, gameData]);
 
-    const gameData = useSelector(state => state.gameDetails.data)
 
-    if (!gameData || gameId !== gameData.id) {
+    if (!gameData || parseInt(gameId, 10) !== gameData.id) {
         return (
             <div className="spinner-border text-light" role="status">
                 <span className="visually-hidden">Loading...</span>
@@ -30,7 +31,7 @@ const Details = () => {
     return (
         <>
             <div className="row">
-                <img className="col-4" src={gameData.thumbnail} />
+                <img alt={gameData.title} className="col-4" src={gameData.thumbnail} />
                 <div className="col">
                     <h2>{gameData.title} <span className="small float-end">{gameData.status}</span></h2>
                     <p>{gameData.developer} & {gameData.publisher} / {gameData.release_date}</p>
@@ -42,7 +43,7 @@ const Details = () => {
             <p className="mt-3">{gameData.description}</p>
             <div className="row">
                 {gameData.screenshots.map((screenshot) => (
-                    <img className="col-4" src={screenshot.image}/>
+                    <img alt={gameData.title} className="col-4" src={screenshot.image}/>
                 ))}
             </div>
             <div>
