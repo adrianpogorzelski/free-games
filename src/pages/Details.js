@@ -9,9 +9,10 @@ const Details = () => {
     const {gameId} = useParams();
     const gameData = useSelector(state => state.gameDetails.data)
 
-    const endpoint = `https://free-to-play-games-database.p.rapidapi.com/api/game?id=${gameId}`
 
     useEffect(() => {
+        const endpoint = `https://free-to-play-games-database.p.rapidapi.com/api/game?id=${gameId}`
+
         if (!gameData || gameData.id !== parseInt(gameId, 10)) {
             fetchData(endpoint).then(data => {
                 dispatch(setGameData(data));

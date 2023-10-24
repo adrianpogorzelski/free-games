@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 const AllGames = () => {
   const dispatch = useDispatch();
-  const games = useSelector(state => state.allGames.games) || [];
+  const games = useSelector(state => state.allGames.games);
 
   const [currentPage, setCurrentPage] = useState(1);
 
