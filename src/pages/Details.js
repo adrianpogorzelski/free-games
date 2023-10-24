@@ -29,7 +29,38 @@ const Details = () => {
 
     return (
         <>
-            <h2>{gameData.title}</h2>
+            <div className="row">
+                <img className="col-4" src={gameData.thumbnail} />
+                <div className="col">
+                    <h2>{gameData.title} <span className="small float-end">{gameData.status}</span></h2>
+                    <p>{gameData.developer} & {gameData.publisher} / {gameData.release_date}</p>
+                    <p className="lead">{gameData.short_description}</p>
+                    <p>{gameData.genre} - {gameData.platform}</p>
+                    <a href={gameData.game_url}>Game website</a>
+                </div>
+            </div>
+            <p className="mt-3">{gameData.description}</p>
+            <div className="row">
+                {gameData.screenshots.map((screenshot) => (
+                    <img className="col-4" src={screenshot.image}/>
+                ))}
+            </div>
+            <div>
+                { gameData.minimum_system_requirements ?
+                    (
+                        <>
+                        <h3>Minimum system requirements</h3>
+                        <ul>
+                            <li>OS: {gameData.minimum_system_requirements.os}</li>
+                            <li>Processor: {gameData.minimum_system_requirements.processor}</li>
+                            <li>RAM: {gameData.minimum_system_requirements.memory}</li>
+                            <li>Graphics: {gameData.minimum_system_requirements.graphics}</li>
+                            <li>Storage: {gameData.minimum_system_requirements.storage}</li>
+                        </ul>
+                        </>
+                    ) : null
+                }
+            </div>
         </>
     )
 }
