@@ -15,6 +15,8 @@ jest.mock('react-redux', () => ({
     useSelector: jest.fn()
 }));
 
+const mockGame = { id: 0, title: 'Title', thumbnail: 'Pic', genre: 'Game' };
+
 const mockData = [
     { id: 1, title: 'Game A', thumbnail: '', genre: '' },
     { id: 2, title: 'Game B', thumbnail: '', genre: '' },
@@ -77,19 +79,34 @@ describe("AllGames", () => {
     describe("Pagination", () => {
         it("navigation buttons are rendered", () => {
             const {getByRole} = render(
-                <BrowserRouter>
-                    <AllGames />
-                </BrowserRouter>);
+                <Provider store={mockStore}>
+                    <BrowserRouter>
+                        <AllGames />
+                    </BrowserRouter>);
+                </Provider>
+            );
             const navElement = getByRole('navigation')
             expect(navElement).toBeInTheDocument();
         })
         it("back button disabled on 1st page", () => {
-            const { getByLabelText } = render(<AllGames />);
+            const { getByLabelText } = render(
+                <Provider store={mockStore}>
+                    <BrowserRouter>
+                        <AllGames />
+                    </BrowserRouter>);
+                </Provider>
+            );
             const backButton = getByLabelText("Previous");
             expect(backButton.closest('.page-item')).toHaveClass('disabled');
         })
         it("back button enabled on 3rd page", async () => {
-            const { getByText } = render(<AllGames />);
+            const { getByText } = render(
+                <Provider store={mockStore}>
+                    <BrowserRouter>
+                        <AllGames />
+                    </BrowserRouter>);
+                </Provider>
+            );
             act(() => {
                 fireEvent.click(getByText('2'));
             })
@@ -101,7 +118,13 @@ describe("AllGames", () => {
         });
 
         it("back button subtracts 1 from current page", () => {
-            const { getByTestId, getByText } = render(<AllGames />);
+            const { getByTestId, getByText } = render(
+                <Provider store={mockStore}>
+                    <BrowserRouter>
+                        <AllGames />
+                    </BrowserRouter>);
+                </Provider>
+            );
             expect(getByTestId('current-page-button')).toHaveTextContent('1');
 
             // go to page 3, then back
@@ -117,7 +140,13 @@ describe("AllGames", () => {
 
         })
         it("next button adds 1 to current page", () => {
-            const { getByTestId, getByText } = render(<AllGames />);
+            const { getByTestId, getByText } = render(
+                <Provider store={mockStore}>
+                    <BrowserRouter>
+                        <AllGames />
+                    </BrowserRouter>);
+                </Provider>
+            );
             expect(getByTestId('current-page-button')).toHaveTextContent('1');
 
             act(() => {
@@ -129,7 +158,13 @@ describe("AllGames", () => {
         })
         it("every button goes to that page", async () => {
             fetchData.mockResolvedValue(mockData);
-            const { getAllByTestId, getByTestId, getByText } = render(<AllGames />);
+            const { getAllByTestId, getByTestId, getByText } = render(
+                <Provider store={mockStore}>
+                    <BrowserRouter>
+                        <AllGames />
+                    </BrowserRouter>);
+                </Provider>
+            );
 
             // Click each button and check if current page updates
             const pageButtons = getAllByTestId('page-button')
@@ -150,17 +185,49 @@ describe("AllGames", () => {
         });
 
         it("plus one page button hidden on last page", () => {
-            const { getByLabelText } = render(<AllGames />);
+            const { getByLabelText } = render(
+                <Provider store={mockStore}>
+                    <BrowserRouter>
+                        <AllGames />
+                    </BrowserRouter>);
+                </Provider>
+            );
             const plusOneButton = getByLabelText("plus-one");
             expect(plusOneButton.closest('li')).toHaveClass('d-none');
             expect(plusOneButton.closest('li')).not.toHaveClass('d-block');
         })
 
         it("plus one page button visible when not on last page", async () => {
-            const mockGame = { id: 0, title: 'Title', thumbnail: 'Pic', genre: 'Game' };
+            useSelector.mockImplementation(callback => callback({
+                allGames: {
+                    games: new Array(60).fill(mockGame),
+                    currentStatus: 'idle',
+                    error: null
+                }
+            }));
 
-            fetchData.mockResolvedValue(new Array(40).fill(mockGame));
-            const { getByLabelText } = render(<AllGames />);
+            const mockStore40 = configureStore({
+                reducer: {
+                    allGames: allGamesReducer,
+                    gameDetails: gameDetailsReducer
+                },
+                preloadedState: {
+                    allGames: {
+                        games: new Array(60).fill(mockGame),
+                        currentStatus: 'idle',
+                        error: null
+                    }
+                }
+            });
+
+            const { getByLabelText } = render(
+                <Provider store={mockStore40}>
+                    <BrowserRouter>
+                        <AllGames />
+                    </BrowserRouter>);
+                </Provider>
+            );
+
             const cards = await screen.findAllByTestId("game-card");
             expect(cards).toHaveLength(20);
 
@@ -170,18 +237,51 @@ describe("AllGames", () => {
         })
 
         it("plus two page button hidden on last but one page", () => {
-            const { getByLabelText } = render(<AllGames />);
+            const { getByLabelText } = render(
+                <Provider store={mockStore}>
+                    <BrowserRouter>
+                        <AllGames />
+                    </BrowserRouter>);
+                </Provider>
+            );
             const plusOneButton = getByLabelText("plus-two");
             expect(plusOneButton.closest('li')).toHaveClass('d-none');
             expect(plusOneButton.closest('li')).not.toHaveClass('d-block');
         })
 
         it("plus two page button visible when not on last but one page", async () => {
-            const mockGame = { id: 0, title: 'Title', thumbnail: 'Pic', genre: 'Game' };
 
-            fetchData.mockResolvedValue(new Array(60).fill(mockGame));
-            const { getByLabelText } = render(<AllGames />);
-            const cards = await screen.findAllByTestId("game-card");
+            useSelector.mockImplementation(callback => callback({
+                allGames: {
+                    games: new Array(60).fill(mockGame),
+                    currentStatus: 'idle',
+                    error: null
+                }
+            }));
+
+            const mockStore60 = configureStore({
+                reducer: {
+                    allGames: allGamesReducer,
+                    gameDetails: gameDetailsReducer
+                },
+                preloadedState: {
+                    allGames: {
+                        games: new Array(60).fill(mockGame),
+                        currentStatus: 'idle',
+                        error: null
+                    }
+                }
+            });
+
+            const { getByLabelText } = render(
+                <Provider store={mockStore60}>
+                    <BrowserRouter>
+                        <AllGames />
+                    </BrowserRouter>);
+                </Provider>
+            );
+
+            const cards = screen.getAllByTestId("game-card");
             expect(cards).toHaveLength(20);
 
             const plusOneButton = await getByLabelText("plus-two");

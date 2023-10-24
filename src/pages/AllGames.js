@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 const AllGames = () => {
   const dispatch = useDispatch();
-  const games = useSelector(state => state.allGames)
+  const games = useSelector(state => state.allGames.games) || [];
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -18,7 +18,7 @@ const AllGames = () => {
 
   // Pagination
   let cardsPerPage = 20;
-  let allPages = Math.ceil(games.length / cardsPerPage);
+  let allPages = games ? Math.ceil(games.length / cardsPerPage) : 0;
 
   const paginate = () => {
     let start = (currentPage - 1) * cardsPerPage;
