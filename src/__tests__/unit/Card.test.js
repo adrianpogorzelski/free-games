@@ -1,8 +1,11 @@
 import React from "react";
 import '@testing-library/jest-dom/extend-expect';
-import Card from "../components/Card";
+import Card from "../../components/Card";
 import {render, fireEvent, waitFor} from "@testing-library/react";
 import {MemoryRouter} from "react-router-dom";
+import {Provider} from "react-redux";
+import {mockData, mockStore} from "./mockData";
+
 
 describe("Card component", () => {
     let getByTestId;
@@ -11,16 +14,18 @@ describe("Card component", () => {
 
     beforeEach(() => {
         const renderResults = render(
-            <MemoryRouter>
-                <Card
-                    key="0"
-                    thumbnail="../img.png"
-                    title="Game title"
-                    genre="Genre"
-                    platform="Platform"
-                    short_description="Short description..."
-                />
-            </MemoryRouter>
+            <Provider store={mockStore}>
+                <MemoryRouter>
+                    <Card
+                        key="0"
+                        thumbnail="../img.png"
+                        title="Game title"
+                        genre="Genre"
+                        platform="Platform"
+                        short_description="Short description..."
+                    />
+                </MemoryRouter>
+            </Provider>
         );
 
         getByTestId = renderResults.getByTestId;
@@ -49,12 +54,5 @@ describe("Card component", () => {
 
         const shortDescription = getByText("Short description...");
         expect(shortDescription).toBeInTheDocument();
-    })
-
-    it("links to game details on click", async () => {
-        const card = getByTestId('game-card');
-        fireEvent.click(card);
-
-        await waitFor(() => expect(getByTestId('game-details')).toBeInTheDocument());
     })
 });

@@ -1,36 +1,22 @@
 import React from 'react';
 import {getByRole, fireEvent, render, screen, act} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import AllGames from '../pages/AllGames';
-import fetchData from '../utils/fetchData';
+import AllGames from '../../pages/AllGames';
+import fetchData from '../../utils/fetchData';
 import {BrowserRouter} from "react-router-dom";
 import {configureStore} from "@reduxjs/toolkit";
 import {Provider, useSelector} from "react-redux";
-import allGamesReducer from "../store/allGamesSlice"
-import gameDetailsReducer from "../store/gameDetailsSlice"
+import allGamesReducer from "../../store/allGamesSlice"
+import gameDetailsReducer from "../../store/gameDetailsSlice"
+import {mockData, mockStore} from "./mockData";
 
-jest.mock('../utils/fetchData');
+jest.mock('../../utils/fetchData');
 jest.mock('react-redux', () => ({
     ...jest.requireActual('react-redux'),
     useSelector: jest.fn()
 }));
 
-const mockGame = { id: 0, title: 'Title', thumbnail: 'Pic', genre: 'Game' };
-
-const mockData = [
-    { id: 1, title: 'Game A', thumbnail: '', genre: '' },
-    { id: 2, title: 'Game B', thumbnail: '', genre: '' },
-];
-
-const mockStore = configureStore({
-    reducer: {
-        allGames: allGamesReducer,
-        gameDetails: gameDetailsReducer
-    },
-    preloadedState: {
-        allGames: mockData
-    }
-});
+const mockGame = {title: 'Title', thumbnail: 'Pic', genre: 'Game' };
 
 beforeEach(() => {
     fetchData.mockClear();
@@ -77,6 +63,10 @@ describe("AllGames", () => {
     })
 
     describe("Pagination", () => {
+        beforeEach(() => {
+            useSelector.mockReturnValue(mockData)
+        })
+
         it("navigation buttons are rendered", () => {
             const {getByRole} = render(
                 <Provider store={mockStore}>
@@ -85,6 +75,7 @@ describe("AllGames", () => {
                     </BrowserRouter>);
                 </Provider>
             );
+
             const navElement = getByRole('navigation')
             expect(navElement).toBeInTheDocument();
         })

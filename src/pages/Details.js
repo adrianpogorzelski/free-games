@@ -30,7 +30,7 @@ const Details = () => {
     }
 
     return (
-        <>
+        <section data-testid="game-details">
             <div className="row">
                 <img alt={gameData.title} className="col-4" src={gameData.thumbnail} />
                 <div className="col">
@@ -63,7 +63,7 @@ const Details = () => {
                     ) : null
                 }
             </div>
-        </>
+        </section>
     )
 }
 

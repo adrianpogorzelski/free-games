@@ -1,7 +1,7 @@
 import React from 'react';
 import {getByRole, render} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import Header from '../components/Header';
+import Header from '../../components/Header';
 import {BrowserRouter} from "react-router-dom";
 
 describe('Header component', () => {

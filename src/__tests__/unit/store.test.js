@@ -1,6 +1,6 @@
 import React from "react";
 import '@testing-library/jest-dom/extend-expect';
-import {store} from "../store/store";
+import {store} from "../../store/store";
 
 describe("Redux store", () => {
     it('should initialize with the correct default state', () => {

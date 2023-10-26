@@ -29,6 +29,8 @@ const AllGames = () => {
   return (
     <>
         <section id="top" className="row row-cols-3 g-3">
+          <div>
+          </div>
           {
             paginate().map((game) => (
               <Card key={game.id} {...game}/>

@@ -13,10 +13,6 @@ export const fetchData = async (endpoint) => {
             }
         });
 
-        if (response.status !== 200) {
-            throw new Error(`API returned status ${response.status}: ${response.statusText}`);
-        }
-
     return response.data;
 
     } catch (error) {

@@ -14,7 +14,7 @@ const allGamesSlice = createSlice({
     name: 'allGames',
     initialState: {
         games: [],
-        currentStatus: 'idle', // 'loading', 'succeeded', 'failed'
+        status: 'idle', // 'loading', 'succeeded', 'failed'
         error: null
     },
     reducers: {},

@@ -1,6 +1,6 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import fetchData, {errorMessage} from "../utils/fetchData";
+import fetchData, {errorMessage} from "../../utils/fetchData";
 jest.mock('axios');
 import axios from "axios";
 
@@ -16,6 +16,7 @@ describe("Fetching data", () => {
         expect(data).toHaveLength(2);
         expect(data).toBeInstanceOf(Array)
     })
+
     it("catches errors", async () => {
         axios.get.mockRejectedValue(new Error(errorMessage));
         await expect(fetchData()).rejects.toThrow("Cannot resolve API data")
