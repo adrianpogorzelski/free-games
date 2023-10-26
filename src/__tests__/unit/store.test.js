@@ -5,8 +5,15 @@ import {store} from "../../store/store";
 describe("Redux store", () => {
     it('should initialize with the correct default state', () => {
         const expectedState = {
-            allGames: [],  // Assuming this is your allGamesReducer's initial state
-            gameDetails: { id: null, data: null } // Assuming this is your gameDetailsReducer's initial state
+            allGames: {
+                games: [],
+                status: 'idle',
+                error: null
+            },
+            gameDetails: {
+                id: null,
+                data: null
+            }
         };
         const actualState = store.getState();
         expect(actualState).toEqual(expectedState);

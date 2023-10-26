@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const gameDetailsSlice = createSlice({
     name: 'gameDetails',
-    initialState: {
+    initialState:
+        {
         id: null,
         data: null
     },
