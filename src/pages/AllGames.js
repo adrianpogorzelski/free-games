@@ -23,8 +23,9 @@ const AllGames = () => {
   const paginate = () => {
     let start = (currentPage - 1) * cardsPerPage;
     let end = start + cardsPerPage;
-    return games.slice(start, end);
+    return (games || []).slice(start, end);
   }
+
 
   return (
     <>

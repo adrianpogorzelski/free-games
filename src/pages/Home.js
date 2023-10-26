@@ -3,7 +3,7 @@ import React from 'react';
 const Home = () => {
     return (
         <>
-            <h1 className="display-1">Free games</h1>
+            <h1 className="display-1" data-testid="home-title">Free games</h1>
         </>
     )
 }

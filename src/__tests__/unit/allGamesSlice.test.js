@@ -1,9 +1,4 @@
 import React from "react";
-import {mockStore} from "./mockData";
-import {render} from "@testing-library/react";
-import {Provider} from "react-redux";
-import {BrowserRouter} from "react-router-dom";
-import AllGames from "../../pages/AllGames";
 import fetchData from "../../utils/fetchData";
 import allGamesReducer, {fetchGames} from "../../store/allGamesSlice";
 

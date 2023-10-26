@@ -40,6 +40,32 @@ describe("AllGames", () => {
             expect(cards).toHaveLength(mockData.length);
         });
 
+        it("does not render any cards if store is empty", () => {
+            const emptyStore = configureStore({
+                reducer: {
+                    allGames: allGamesReducer,
+                },
+                preloadedState: {
+                    allGames: {
+                        games: [],
+                        currentStatus: 'idle',
+                        error: null
+                    }
+                }
+            });
+
+            const { queryAllByTestId } = render(
+                <Provider store={emptyStore}>
+                    <BrowserRouter>
+                        <AllGames />
+                    </BrowserRouter>
+                </Provider>
+            );
+
+            const cards = queryAllByTestId("game-card");
+            expect(cards).toHaveLength(0);
+        });
+
         it('displays games based on state', () => {
             // Setting the mock return value for useSelector
             useSelector.mockReturnValue([
