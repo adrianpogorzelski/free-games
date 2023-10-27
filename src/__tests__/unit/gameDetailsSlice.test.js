@@ -9,7 +9,7 @@ describe("gameDetailsSlice", () => {
     };
 
     it("handles setCurrentGameId action", () => {
-        const testId = 123; // you can use any id for testing
+        const testId = 123;
         const newState = gameDetailsReducer(initialState, setCurrentGameId(testId));
         expect(newState.id).toBe(testId);
     });

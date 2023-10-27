@@ -13,6 +13,7 @@ const Details = () => {
     useEffect(() => {
         const endpoint = `https://free-to-play-games-database.p.rapidapi.com/api/game?id=${gameId}`
 
+        // Only fetch data if the game hasn't been checked previously
         if (!gameData || gameData.id !== parseInt(gameId, 10)) {
             fetchData(endpoint).then(data => {
                 dispatch(setGameData(data));
@@ -20,10 +21,10 @@ const Details = () => {
         }
     }, [gameId, dispatch, gameData]);
 
-
+    // Loading spinner
     if (!gameData || parseInt(gameId, 10) !== gameData.id) {
         return (
-            <div className="spinner-border text-light" role="status">
+            <div className="spinner-border text-light" role="status" data-testid='spinner'>
                 <span className="visually-hidden">Loading...</span>
             </div>
         );

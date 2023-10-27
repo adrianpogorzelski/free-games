@@ -8,15 +8,13 @@ import {configureStore} from "@reduxjs/toolkit";
 import {Provider, useSelector} from "react-redux";
 import allGamesReducer from "../../store/allGamesSlice"
 import gameDetailsReducer from "../../store/gameDetailsSlice"
-import {mockData, mockStore} from "./mockData";
+import {mockData, mockGame, mockStore} from "./mockData";
 
 jest.mock('../../utils/fetchData');
 jest.mock('react-redux', () => ({
     ...jest.requireActual('react-redux'),
     useSelector: jest.fn()
 }));
-
-const mockGame = {title: 'Title', thumbnail: 'Pic', genre: 'Game' };
 
 beforeEach(() => {
     fetchData.mockClear();
