@@ -22,6 +22,14 @@ const AllGames = () => {
   let cardsPerPage = 20;
   let allPages = allGames ? Math.ceil(allGames.length / cardsPerPage) : 0;
 
+  if (filteredGames) {
+    allPages = Math.ceil(filteredGames.length / cardsPerPage);
+    // Ensure currentPage is within bounds after filtering
+    if (currentPage > allPages) {
+      setCurrentPage(allPages);
+    }
+  }
+
   let pageContent = filteredGames ? filteredGames : allGames;
 
   const paginate = () => {
