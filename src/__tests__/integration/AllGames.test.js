@@ -16,7 +16,10 @@ describe('AllGames component', () => {
                 games: [],
                 currentStatus: 'idle',
                 error: null
-            }
+            },
+            filters: {
+                filteredGames: null
+            },
         });
 
         fetchGames.mockReturnValue({ type: 'fetchGames' }); // Mock return of the action
@@ -36,7 +39,10 @@ describe('AllGames component', () => {
                 games: [{ id: 1, title: 'Game A' }],
                 currentStatus: 'succeeded',
                 error: null
-            }
+            },
+            filters: {
+                filteredGames: null
+            },
         });
 
         fetchGames.mockReturnValue({ type: 'fetchGames' }); // Mock return of the action
@@ -58,6 +64,9 @@ describe('AllGames component', () => {
                 games: [{ id: 1, title: 'Game A' }],
                 currentStatus: 'succeeded',
                 error: null
+            },
+            filters: {
+                filteredGames: null
             }
         });
 

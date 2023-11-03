@@ -66,6 +66,8 @@ describe('Details page', () => {
         );
 
         const gameDetails = await screen.findByTestId('game-details');
+        const gameData = useSelector(state => state.gameDetails.data);
+        expect(gameData).not.toBeNull();
         expect(gameDetails).toBeInTheDocument();
     });
 

@@ -38,7 +38,7 @@ const Filters = () => {
                 </div>
 
                 <div className="col">
-                    <button type="submit" className="btn btn-secondary me-3">Filter</button>
+                    <button type="submit" className="btn btn-secondary me-3" data-testid="filter-button">Filter</button>
                     <button type="button" className="btn btn-outline-secondary" onClick={() => dispatch(resetFilters())}>Reset</button>
                 </div>
             </div>
