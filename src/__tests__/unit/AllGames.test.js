@@ -218,6 +218,9 @@ describe("AllGames", () => {
                     games: new Array(60).fill(mockGame),
                     currentStatus: 'idle',
                     error: null
+                },
+                filters: {
+                    filteredGames: null
                 }
             }));
 
@@ -225,6 +228,9 @@ describe("AllGames", () => {
                 reducer: {
                     allGames: allGamesReducer,
                     gameDetails: gameDetailsReducer
+                },
+                filters: {
+                    filteredGames: null
                 },
                 preloadedState: {
                     allGames: {
@@ -271,6 +277,9 @@ describe("AllGames", () => {
                     games: new Array(60).fill(mockGame),
                     currentStatus: 'idle',
                     error: null
+                },
+                filters: {
+                    filteredGames: null
                 }
             }));
 
@@ -278,6 +287,9 @@ describe("AllGames", () => {
                 reducer: {
                     allGames: allGamesReducer,
                     gameDetails: gameDetailsReducer
+                },
+                filters: {
+                    filteredGames: null
                 },
                 preloadedState: {
                     allGames: {

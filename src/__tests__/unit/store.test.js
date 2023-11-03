@@ -10,6 +10,9 @@ describe("Redux store", () => {
                 status: 'idle',
                 error: null
             },
+            filters: {
+                filteredGames: null
+            },
             gameDetails: {
                 id: null,
                 data: null

@@ -1,6 +1,9 @@
 import { Link} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {resetFilters} from "../store/filtersSlice";
 
 function Header() {
+    const dispatch = useDispatch();
     return (
         <header className="bg-secondary">
             <nav className="navbar navbar-expand-lg">
@@ -15,7 +18,7 @@ function Header() {
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <Link className="nav-link" aria-current="page" to="/games">All games</Link>
+                                <Link className="nav-link" aria-current="page" to="/games" onClick={() => dispatch(resetFilters())}>All games</Link>
                             </li>
                         </ul>
                     </div>

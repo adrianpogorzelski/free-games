@@ -1,6 +1,7 @@
 import {configureStore} from "@reduxjs/toolkit";
 import allGamesReducer from "../../store/allGamesSlice";
 import gameDetailsReducer from "../../store/gameDetailsSlice";
+import filtersReducer from "../../store/filtersSlice";
 
 const mockData = [
     { id: 1, title: 'Game A', thumbnail: '', genre: '' },
@@ -36,7 +37,11 @@ const mockDetails = {
 const mockStore = configureStore({
     reducer: {
         allGames: allGamesReducer,
-        gameDetails: gameDetailsReducer
+        gameDetails: gameDetailsReducer,
+        filters: filtersReducer
+    },
+    filters: {
+        filteredGames: null
     },
     preloadedState: {
         allGames: mockData,

@@ -51,4 +51,24 @@ describe('AllGames component', () => {
 
         expect(store.getActions()).not.toContainEqual({ type: 'fetchGames' });
     });
+
+    describe("Filters component", () => {
+        const store = mockStore({
+            allGames: {
+                games: [{ id: 1, title: 'Game A' }],
+                currentStatus: 'succeeded',
+                error: null
+            }
+        });
+
+        const {getByTestId} = render(
+            <Provider store={store}>
+                <BrowserRouter>
+                    <AllGames />
+                </BrowserRouter>
+            </Provider>
+        )
+        const filtersElement = getByTestId('filters')
+        expect(filtersElement).toBeInTheDocument()
+    })
 });
