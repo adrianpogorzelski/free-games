@@ -57,7 +57,8 @@ const Filters = () => {
         dispatch(resetFilters());
     };
     return (
-        <form data-testid='filters' className="mb-3 row-cols-auto" onSubmit={handleSubmit}>
+        <section>
+            <form data-testid='filters' id="filters-collapse" className="collapse mb-3 row-cols-auto" onSubmit={handleSubmit}>
             <div className="row align-items-center">
                 <div data-testid="platform" className="col-2">
                     <div className='form-check'>
@@ -106,6 +107,12 @@ const Filters = () => {
                 Could not find any games with the specified criteria
             </div>
         </form>
+
+            <button className="btn w-100 btn-secondary mt-1 mb-3" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#filters-collapse" aria-expanded="false" aria-controls="filters-collapse">
+                Toggle filters
+            </button>
+        </section>
     );
 };
 
