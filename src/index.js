@@ -7,6 +7,8 @@ import {store} from "./store/store";
 import Home from "./pages/Home";
 import AllGames from "./pages/AllGames";
 import Details from "./pages/Details";
+import Tags from "./pages/Tags";
+import GamesByTag from "./pages/GamesByTag";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -18,6 +20,8 @@ root.render(
                       <Route index path="/" element={<Home />} />
                       <Route path="games" element={<AllGames />} />
                       <Route path="games/:gameId" element={<Details />} />
+                      <Route path="categories" element={<Tags />} />
+                      <Route path="categories/:tag" element={<GamesByTag />} />
                   </Route>
               </Routes>
           </BrowserRouter>

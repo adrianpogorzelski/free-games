@@ -20,6 +20,9 @@ function Header() {
                             <li className="nav-item">
                                 <Link className="nav-link" aria-current="page" to="/games" onClick={() => dispatch(resetFilters())}>All games</Link>
                             </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" aria-current="page" to="/categories">Categories</Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
